@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Stepper = ({ steps, currentStep, handleClick }) => {
   const [newStep, setNewStep] = useState([]);
@@ -44,27 +46,15 @@ const Stepper = ({ steps, currentStep, handleClick }) => {
 
   return (
     <>
-      <div className="mx-4 p-4 flex justify-between items-center">
-        <div
-          className="cursor-pointer"
-          onClick={() => handleClick("back")}
-        >
-          {/* Insert SVG back arrow icon here */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+      <div className="mx-2 p-4 flex justify-between items-center">
+        {currentStep !== 1 && (
+          <div
+            className="cursor-pointer"
+            onClick={() => handleClick("back")}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
-        </div>
+            <FontAwesomeIcon icon={faChevronRight} style={{ transform: "scaleX(-1)" }} />
+          </div>
+        )}
         {displaySteps}
       </div>
     </>

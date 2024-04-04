@@ -6,16 +6,19 @@ import Interested from "./Components/Steps/Interested";
 import RightPlace from "./Components/Steps/RightPlace";
 import Math from "./Components/Steps/Math";
 import Complete from "./Components/Steps/Complete";
+import { StepperContext } from "./Context/StepperContext";
 
 const App = () => {
   const [currentStep, setCurrentStep] = useState(1);
-
+  const [userData,setUserData]=useState('')
+  const [finalData,setFinalData]=useState([])
   const steps = [
     "Description",
     "Interested",
     "Right Place",
     "Math",
     "Complete",
+    "Next"
   ];
   const displayStep = (step) => {
     switch (step) {
@@ -40,11 +43,28 @@ const App = () => {
 
   return (
     <>
-      <div className="md:w-1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
+      <div className="md:w-3/4 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
         {/* Stepper */}
-        <div className="container horizontal mt-5">
-          <Stepper steps={steps} currentStep={currentStep} handleClick={handleClick} />
+        <div className="container horizontal mt-2">
+          <Stepper
+            steps={steps}
+            currentStep={currentStep}
+            handleClick={handleClick}
+          />
+
+          {/* Display Components */}
+          <div className="my-5 p-10">
+            <StepperContext.Provider value={{
+              userData,
+              setUserData,
+              finalData,
+              setFinalData
+            }}>
+            {displayStep(currentStep)}
+            </StepperContext.Provider>
+          </div>
         </div>
+
         {/* Navigation Controls */}
         <StepperControl
           handleClick={handleClick}
